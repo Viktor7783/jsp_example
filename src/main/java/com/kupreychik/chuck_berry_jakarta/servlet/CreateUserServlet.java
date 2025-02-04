@@ -32,10 +32,12 @@ public class CreateUserServlet extends HttpServlet {
 
     private UserService userService;
 
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         ServletContext servletContext = config.getServletContext();
+        getServletContext();
         this.userService = (UserService) servletContext.getAttribute("userService");
     }
 
@@ -62,6 +64,11 @@ public class CreateUserServlet extends HttpServlet {
         }
         if (userService.isNameValid(name)) {
             request.setAttribute("error", userService.getMessage(ERROR_NAME_EXISTS));
+
+            request.setAttribute(NAME, name);
+            request.setAttribute(EMAIL, email);
+            request.setAttribute(ROLES, UserRole.values());
+
             request.getRequestDispatcher(CREATE_USER_JSP).forward(request, response);
             return;
         }

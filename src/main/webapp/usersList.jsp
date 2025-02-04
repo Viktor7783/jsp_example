@@ -27,10 +27,11 @@
                 <td>${user.email}</td>
                 <td>${user.role}</td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/users/edit?name=${user.name}" class="btn btn-warning">Edit</a>
+                        <%--<a href="${pageContext.request.contextPath}/users/edit?name=${user.name}" class="btn btn-warning">Edit</a>--%>
+                    <a href="${pageContext.request.contextPath}/users/edit?userId=${user.id}" class="btn btn-warning">Edit</a>
                     <form action="${pageContext.request.contextPath}/users/delete" method="post"
                           style="display: inline;">
-                        <input type="hidden" name="name" value="${user.name}">
+                        <input type="hidden" name="userId" value="${user.id}">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
@@ -47,3 +48,13 @@
 </body>
 
 </html>
+
+<%--Разберем ${pageContext.request.contextPath} подробно:
+    pageContext - это встроенный объект JSP, который предоставляет доступ к различным атрибутам страницы
+    request - это объект HttpServletRequest, доступный через pageContext
+    contextPath - это метод, который возвращает путь к корню веб-приложения
+Примеры значений contextPath:
+    "/" - если приложение развернуто как ROOT
+    "/myapp" - если приложение развернуто как myapp.war
+    "/onlineshop" - если приложение развернуто как onlineshop.war
+--%>

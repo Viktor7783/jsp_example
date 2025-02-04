@@ -29,22 +29,28 @@ public class UserService {
         users.add(user);
     }
 
-    public Optional<User> getUser(String name) {
+   /* public Optional<User> getUser(String name) {
         return users.stream()
                 .filter(user -> user.getName().equals(name))
                 .findFirst();
+    }*/
+
+    public Optional<User> getUserById(String userId) {
+        return users.stream()
+                .filter(user -> String.valueOf(user.getId()).equals(userId))
+                .findFirst();
     }
 
-    public void updateUser(String name, String newName, String newEmail, UserRole newRole) {
-        getUser(name).ifPresent(user -> {
+    public void updateUser(String userId, String newName, String newEmail, UserRole newRole) {
+        getUserById(userId).ifPresent(user -> {
             user.setName(newName);
             user.setEmail(newEmail);
             user.setRole(newRole);
         });
     }
 
-    public void deleteUser(String name) {
-        users.removeIf(user -> user.getName().equals(name));
+    public void deleteUser(String userId) {
+        users.removeIf(user -> String.valueOf(user.getId()).equals(userId));
     }
 
     public boolean isEmailValid(String email) {

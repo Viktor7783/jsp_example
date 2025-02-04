@@ -13,10 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-import static com.kupreychik.chuck_berry_jakarta.consts.WebConsts.DELETE;
-import static com.kupreychik.chuck_berry_jakarta.consts.WebConsts.NAME;
-import static com.kupreychik.chuck_berry_jakarta.consts.WebConsts.SLASH;
-import static com.kupreychik.chuck_berry_jakarta.consts.WebConsts.USERS;
+import static com.kupreychik.chuck_berry_jakarta.consts.WebConsts.*;
 
 @Slf4j
 @WebServlet(SLASH + USERS + SLASH + DELETE)
@@ -33,9 +30,9 @@ public class DeleteUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter(NAME);
-        log.info("Deleting user with name: {}", name);
-        userService.deleteUser(name);
+        String userId = request.getParameter(USER_ID);
+        log.info("Deleting user with id: {}", userId);
+        userService.deleteUser(userId);
         response.sendRedirect(request.getContextPath() + SLASH + USERS);
     }
 }

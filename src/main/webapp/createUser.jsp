@@ -28,7 +28,7 @@
         </div>
         <div class="form-group">
             <label for="role">Role</label>
-            <select class="form-control" id="role" name="role"  required>
+            <select class="form-control" id="role" name="role" required>
                 <c:forEach var="role" items="${roles}">
                     <option value="${role}">${role}</option>
                 </c:forEach>

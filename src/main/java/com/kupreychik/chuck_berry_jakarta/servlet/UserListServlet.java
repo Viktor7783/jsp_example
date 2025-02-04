@@ -14,6 +14,9 @@ import java.io.IOException;
 
 import static com.kupreychik.chuck_berry_jakarta.consts.WebConsts.*;
 
+/*@Slf4j - это аннотация из библиотеки Lombok, которая автоматически создает поле логгера в классе.
+При компиляции Lombok генерирует такой код:
+private static final Logger log = LoggerFactory.getLogger(MyServlet.class);*/
 @Slf4j
 @WebServlet(SLASH + USERS)
 public class UserListServlet extends HttpServlet {
@@ -22,7 +25,7 @@ public class UserListServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+        super.init(config); //!!!
         ServletContext servletContext = config.getServletContext();
         this.userService = (UserService) servletContext.getAttribute("userService");
     }
@@ -34,3 +37,10 @@ public class UserListServlet extends HttpServlet {
         request.getRequestDispatcher(USERS_LIST_JSP).forward(request, response);
     }
 }
+
+/*Вызов super.init(config) в методе init очень важен по нескольким причинам:
+    Родительский класс HttpServlet выполняет критически важную инициализацию сервлета
+    Сохраняет ServletConfig для дальнейшего использования
+    Без этого вызова не будут работать методы getServletContext() и getServletConfig()
+    Обеспечивает правильную инициализацию всего жизненного цикла сервлета
+*/

@@ -11,7 +11,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Edit User</h1>
     <form action="${pageContext.request.contextPath}/users/edit" method="post">
-        <input type="hidden" name="oldName" value="${user.name}">
+        <input type="hidden" name="userId" value="${user.id}">
         <input type="hidden" name="oldEmail" value="${user.email}">
         <div class="form-group">
             <label for="name">Name</label>
@@ -40,3 +40,16 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+<%--Expression Language (EL) в JSP работает через геттеры класса, а не напрямую с полями. В вашем случае это возможно благодаря:
+    Аннотации @Getter от Lombok, которая автоматически генерирует методы:
+    getId()
+    getName()
+    getEmail()
+    getRole()
+Когда вы используете EL выражения:
+    ${user.id} - вызывается метод getId()
+    ${user.email} - вызывается метод getEmail()
+    ${user.name} - вызывается метод getName()
+EL использует JavaBeans конвенцию для доступа к свойствам объекта. Когда вы пишете ${user.email}, EL автоматически ищет метод getEmail() в классе User. Поэтому несмотря на то, что поля private, доступ к ним происходит через публичные геттеры.
+Если бы у вас не было геттеров (например, не было бы аннотации @Getter), то EL выражения не смогли бы получить значения этих полей.--%>
